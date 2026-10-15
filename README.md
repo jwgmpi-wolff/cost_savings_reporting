@@ -2,8 +2,8 @@
 
 Professional real-time dashboard for Azure Reservation and Savings Plan savings analysis using the Azure Cost Management API, with Azure Advisor recommendations and OAuth2 authentication.
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](#optional-one-click-deploy-to-azure)
-[![Azure App Service Deploy](https://github.com/jerrywolff_microsoft/cost_savings_reporting/actions/workflows/deploy-appservice.yml/badge.svg)](https://github.com/jerrywolff_microsoft/cost_savings_reporting/actions/workflows/deploy-appservice.yml)
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fjwgmpi-wolff%2Fcost_savings_reporting%2Fmain%2Finfra%2Fazuredeploy.json)
+[![Azure App Service Deploy](https://github.com/jwgmpi-wolff/cost_savings_reporting/actions/workflows/deploy-appservice.yml/badge.svg)](https://github.com/jwgmpi-wolff/cost_savings_reporting/actions/workflows/deploy-appservice.yml)
 
 ## Local Deployment Quick Start
 
@@ -19,6 +19,48 @@ Then open:
 Optional:
 - `./scripts/deploy_local.ps1 -Port 8080`
 - `./scripts/deploy_local.ps1 -SkipAzureCheck`
+
+## Public Azure Deployment
+
+This repository is designed to be deployable to a user's own Azure tenant and
+subscription. It does not require Microsoft-internal resources, Microsoft
+credentials, or resources from the repository owner's subscription.
+
+### Access requirements
+
+The deploying user needs:
+
+- An Azure account in the tenant where the app will run
+- `Contributor` (or equivalent resource deployment permissions) on the target
+  subscription or resource group
+- `Cost Management Reader` on each subscription the dashboard will query
+- Azure CLI installed and an interactive `az login` session
+
+The dashboard uses the signed-in user's Azure identity for Cost Management
+queries. Each user must sign in from the dashboard and only sees data allowed
+by their Azure RBAC assignments.
+
+### One-click infrastructure deployment
+
+Use the **Deploy to Azure** button above. In the Azure portal, choose the
+user's subscription, resource group, region, a globally unique app name, and
+the subscription ID whose cost data should be queried. The template creates an
+HTTPS-only Linux App Service plan and web app.
+
+After the template completes, deploy the application package from a clone:
+
+```powershell
+az login
+az account set --subscription "<your-subscription-id>"
+./scripts/deploy_appservice.ps1 `
+  -ResourceGroup "<your-resource-group>" `
+  -AppName "<your-unique-app-name>" `
+  -Location "<your-region>" `
+  -SubscriptionId "<your-subscription-id>"
+```
+
+The resulting URL is:
+`https://<your-unique-app-name>.azurewebsites.net`
 
 ## ✨ Features
 

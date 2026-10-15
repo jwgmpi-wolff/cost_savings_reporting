@@ -12,7 +12,10 @@ param(
     [string]$Runtime = "PYTHON:3.11",
 
     [Parameter(Mandatory = $false)]
-    [string]$Sku = "B1"
+    [string]$Sku = "B1",
+
+    [Parameter(Mandatory = $false)]
+    [string]$SubscriptionId = ""
 )
 
 $ErrorActionPreference = "Stop"
@@ -22,6 +25,11 @@ az account show 1>$null
 if ($LASTEXITCODE -ne 0) {
     az login
 }
+
+if ([string]::IsNullOrWhiteSpace($SubscriptionId)) {
+    $SubscriptionId = az account show --query id --output tsv
+}
+az account set --subscription $SubscriptionId
 
 Write-Host "Creating resource group $ResourceGroup in $Location..."
 az group create --name $ResourceGroup --location $Location --output table
@@ -46,6 +54,13 @@ az webapp config appsettings set `
   --name $AppName `
   --resource-group $ResourceGroup `
   --settings SCM_DO_BUILD_DURING_DEPLOYMENT=true `
+  --output table
+
+Write-Host "Configuring the subscription queried by the dashboard..."
+az webapp config appsettings set `
+  --name $AppName `
+  --resource-group $ResourceGroup `
+  --settings AZURE_SUBSCRIPTION_ID=$SubscriptionId `
   --output table
 
 Write-Host "Done. App URL: https://$AppName.azurewebsites.net"

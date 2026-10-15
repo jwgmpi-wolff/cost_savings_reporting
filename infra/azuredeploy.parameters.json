@@ -13,6 +13,9 @@
     },
     "linuxFxVersion": {
       "value": "PYTHON|3.11"
+    },
+    "subscriptionId": {
+      "value": "5755893a-8056-4ba8-9916-1133c80a80f3"
     }
   }
 }

@@ -33,6 +33,12 @@
       "metadata": {
         "description": "Linux runtime stack"
       }
+    },
+    "subscriptionId": {
+      "type": "string",
+      "metadata": {
+        "description": "Azure subscription ID queried by the dashboard"
+      }
     }
   },
   "variables": {
@@ -73,6 +79,10 @@
             {
               "name": "SCM_DO_BUILD_DURING_DEPLOYMENT",
               "value": "true"
+            },
+            {
+              "name": "AZURE_SUBSCRIPTION_ID",
+              "value": "[parameters('subscriptionId')]"
             }
           ]
         }
