@@ -5,6 +5,16 @@ Professional real-time dashboard for Azure Reservation and Savings Plan savings 
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fjwgmpi-wolff%2Fcost_savings_reporting%2Fmain%2Finfra%2Fazuredeploy.json)
 [![Azure App Service Deploy](https://github.com/jwgmpi-wolff/cost_savings_reporting/actions/workflows/deploy-appservice.yml/badge.svg)](https://github.com/jwgmpi-wolff/cost_savings_reporting/actions/workflows/deploy-appservice.yml)
 
+<!-- project-downloads:start -->
+## APK and installer downloads
+
+No packaged APK or desktop installer is currently published for this repository. The source archive below is not an installer; use the project-specific setup and build instructions.
+
+- [Download the complete source ZIP](https://github.com/jwgmpi-wolff/cost_savings_reporting/archive/refs/heads/main.zip).
+- [Setup script: setup.bat](./setup.bat) (download and extract the complete source ZIP first).
+- [Setup script: setup.sh](./setup.sh) (download and extract the complete source ZIP first).
+<!-- project-downloads:end -->
+
 ## Local Deployment Quick Start
 
 Run locally in one command (Windows PowerShell):
@@ -682,3 +692,9 @@ python-dotenv==1.0.0
 ## License
 
 MIT
+
+## Copyright
+
+Copyright (c) 2026 Jerry Wolff. See [COPYRIGHT](COPYRIGHT) for the scope of this
+notice. Existing licenses and third-party attribution remain unchanged; this
+notice does not grant additional permissions.
